@@ -38,7 +38,7 @@ int main()
 			float v = (float)y / (imageHeight - 1);
 
 			RayTracing::Ray ray(origin, lowerLeftCorner + u * horizontal + v * vertical - origin);
-			glm::vec3 color = RayTracing::GetRayColor(ray);
+			glm::vec3 color = ray.GetColor();
 
 			std::cout << color << std::endl;
 		}
