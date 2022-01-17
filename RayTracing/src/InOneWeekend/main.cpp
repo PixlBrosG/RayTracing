@@ -1,7 +1,9 @@
 #include <iostream>
 
 #include "Core/Base.h"
+
 #include "InOneWeekend/Color.h"
+#include "InOneWeekend/Ray.h"
 
 int main()
 {
@@ -9,8 +11,19 @@ int main()
 	RayTracing::Log::Init();
 
 	// Image
-	constexpr int imageWidth  = 256;
-	constexpr int imageHeight = 256;
+	constexpr float aspectRatio = 16.0f / 9.0f;
+	constexpr int imageWidth = 400;
+	constexpr int imageHeight = (int)(imageWidth / aspectRatio);
+
+	// Camera
+	float viewportHeight = 2.0f;
+	float viewportWidth = aspectRatio * viewportHeight;
+	float focalLength = 1.0f;
+
+	glm::vec3 origin{ 0, 0, 0 };
+	glm::vec3 horizontal{ viewportWidth, 0, 0 };
+	glm::vec3 vertical{ 0, viewportHeight, 0 };
+	glm::vec3 lowerLeftCorner = origin - horizontal / 2.0f - vertical / 2.0f - glm::vec3{ 0, 0, focalLength };
 
 	// Render
 	std::cout << "P3" << std::endl;
@@ -21,14 +34,17 @@ int main()
 	{
 		for (int x = 0; x < imageWidth; ++x)
 		{
-			float r = (float)x / (imageWidth  - 1);
-			float g = (float)y / (imageHeight - 1);
-			float b = 0.25f;
+			float u = (float)x / (imageWidth - 1);
+			float v = (float)y / (imageHeight - 1);
 
-			glm::vec3 color{ r, g, b };
-			std::cout << color;
+			RayTracing::Ray ray(origin, lowerLeftCorner + u * horizontal + v * vertical - origin);
+			glm::vec3 color = RayTracing::GetRayColor(ray);
+
+			std::cout << color << std::endl;
 		}
 	}
+
+	std::cerr << "Done." << std::endl;
 
 	return 0;
 
