@@ -10,7 +10,16 @@ project "RayTracing"
 	files
 	{
 		"src/**.h",
-		"src/**.cpp"
+		"src/**.cpp",
+		"vendor/glm/glm/**.hpp",
+		"vendor/glm/glm/**.inl"
+	}
+
+	includedirs
+	{
+		"src",
+		"vendor/spdlog/include",
+		"%{IncludeDir.glm}"
 	}
 
 	filter "system:Windows"

@@ -1,0 +1,6 @@
+[submodule "RayTracing/vendor/glm"]
+	path = RayTracing/vendor/glm
+	url = https://pixlbrosg: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@github.com/pixlbrosg/glm
+[submodule "RayTracing/vendor/spdlog"]
+	path = RayTracing/vendor/spdlog
+	url = https://github.com/gabime/spdlog

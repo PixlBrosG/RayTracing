@@ -1,7 +1,13 @@
 #include <iostream>
 
+#include "Core/Base.h"
+#include "InOneWeekend/Color.h"
+
 int main()
 {
+	// Initializing
+	RayTracing::Log::Init();
+
 	// Image
 	constexpr int imageWidth  = 256;
 	constexpr int imageHeight = 256;
@@ -19,14 +25,12 @@ int main()
 			float g = (float)y / (imageHeight - 1);
 			float b = 0.25f;
 
-			int ir = (int)(255.999f * r);
-			int ig = (int)(255.999f * g);
-			int ib = (int)(255.999f * b);
-
-			std::cout << ir << ' ' << ig << ' ' << ib << std::endl;
+			glm::vec3 color{ r, g, b };
+			std::cout << color;
 		}
 	}
 
 	return 0;
 
 }
+
