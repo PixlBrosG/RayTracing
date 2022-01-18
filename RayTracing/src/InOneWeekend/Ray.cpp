@@ -1,9 +1,9 @@
 #include <glm/geometric.hpp>
 #include <glm/gtx/norm.hpp>
 
-#include "InOneWeekend/RTWeekend.h"
-
 #include "InOneWeekend/Ray.h"
+
+#include "InOneWeekend/RTWeekend.h"
 
 namespace RayTracing {
 
