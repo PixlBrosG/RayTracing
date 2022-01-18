@@ -14,7 +14,6 @@ namespace RayTracing {
 		const glm::vec3& GetDirection() const { return m_Direction; }
 
 		glm::vec3 At(float t) const { return m_Origin + t * m_Direction; }
-		glm::vec3 GetColor() const;
 
 		float HitSphere(const glm::vec3& center, float radius) const;
 	public:

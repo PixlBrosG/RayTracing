@@ -16,7 +16,7 @@ namespace RayTracing {
 
 		float a = glm::length2(ray.GetDirection());
 		float halfB = glm::dot(oc, ray.GetDirection());
-		float c = glm::length(oc) - m_Radius * m_Radius;
+		float c = glm::length2(oc) - m_Radius * m_Radius;
 
 		float discriminant = halfB * halfB - a * c;
 
