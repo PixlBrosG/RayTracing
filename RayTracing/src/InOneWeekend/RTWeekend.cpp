@@ -32,7 +32,7 @@ namespace RayTracing { namespace Utils {
 			return glm::vec3{ 0, 0, 0 };
 
 		HitRecord hitRecord;
-		if (world.IsHit(ray, 0, infinity, hitRecord))
+		if (world.IsHit(ray, 0.001f, infinity, hitRecord))
 		{
 			glm::vec3 target = hitRecord.Normal + RandomInUnitSphere();
 			return 0.5f * GetRayColor(Ray(hitRecord.Point, target), world, depth - 1);
