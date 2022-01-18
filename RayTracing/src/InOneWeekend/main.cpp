@@ -20,6 +20,7 @@ int main()
 	constexpr int imageWidth = 400;
 	constexpr int imageHeight = (int)(imageWidth / aspectRatio);
 	constexpr int samplesPerPixel = 100;
+	constexpr int maxDepth = 50;
 
 	// World
 	HittableList world;
@@ -46,7 +47,7 @@ int main()
 				float u = (x + Utils::RandomFloat()) / (imageWidth - 1);
 				float v = (y + Utils::RandomFloat()) / (imageHeight - 1);
 				Ray ray = camera.GetRay(u, v);
-				color += Utils::GetRayColor(ray, world);
+				color += Utils::GetRayColor(ray, world, maxDepth);
 			}
 			Utils::WriteColor(std::cout, color, samplesPerPixel);
 		}
