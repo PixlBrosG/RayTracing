@@ -21,6 +21,7 @@ constexpr float pi = 3.1415926535897932385f;
 namespace RayTracing {
 
 	class Hittable;
+	class HittableList;
 
 	namespace Utils {
 
@@ -45,6 +46,8 @@ namespace RayTracing {
 
 		glm::vec3 Reflect(const glm::vec3& v, const glm::vec3& n);
 		glm::vec3 Refract(const glm::vec3& uv, const glm::vec3& n, float etaiOverEtat);
+
+		HittableList RandomScene();
 
 	}
 

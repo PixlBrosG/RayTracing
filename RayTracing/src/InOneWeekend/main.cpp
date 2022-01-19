@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Core/Base.h"
+#include "Core/Timer.h"
 
 #include "InOneWeekend/RTWeekend.h"
 #include "InOneWeekend/HittableList.h"
@@ -17,36 +18,25 @@ int main()
 
 	// Initializing
 	Log::Init();
+	Timer timer;
 
 	// Image
-	constexpr float aspectRatio = 16.0f / 9.0f;
-	constexpr int imageWidth = 400;
+	constexpr float aspectRatio = 3.0f / 2.0f;
+	constexpr int imageWidth = 1200;
 	constexpr int imageHeight = (int)(imageWidth / aspectRatio);
-	constexpr int samplesPerPixel = 100;
+	constexpr int samplesPerPixel = 10;
 	constexpr int maxDepth = 50;
 
 	// World
 
-	float R = glm::cos(pi / 4);
-	HittableList world;
-
-	Ref<Lambertian> material_ground = CreateRef<Lambertian>(glm::vec3{ 0.8f, 0.8f, 0.0f });
-	Ref<Lambertian> material_center = CreateRef<Lambertian>(glm::vec3{ 0.1f, 0.2f, 0.5f });
-	Ref<Dielectric> material_left   = CreateRef<Dielectric>(1.5f);
-	Ref<Metal>      material_right  = CreateRef<Metal>(glm::vec3{ 0.8f, 0.6f, 0.2f }, 0.0f);
-
-	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f, -100.5f, -1.0f }, 100.0f, material_ground));
-	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f,    0.0f, -1.0f }, 0.5f,   material_center));
-	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f }, 0.5f,   material_left));
-	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f }, -0.45f, material_left));
-	world.Add(CreateRef<Sphere>(glm::vec3{  1.0f,    0.0f, -1.0f }, 0.5f,   material_right));
+	HittableList world = Utils::RandomScene();
 
 	// Camera
-	constexpr glm::vec3 lookFrom{ 3, 3, 3 };
-	constexpr glm::vec3 lookAt{ 0, 0, -1 };
+	constexpr glm::vec3 lookFrom{ 13, 2, 3 };
+	constexpr glm::vec3 lookAt{ 0, 0, 0 };
 	constexpr glm::vec3 vup{ 0, 1, 0 };
-	float distToFocus = glm::length(lookFrom - lookAt);
-	float aperture = 2.0f;
+	float distToFocus = 10.0f;
+	float aperture = 0.1f;
 
 	Camera camera(lookFrom, lookAt, vup, 20, aspectRatio, aperture, distToFocus);
 
@@ -73,7 +63,8 @@ int main()
 		}
 	}
 
-	std::cerr << std::endl << "Done." << std::endl;
+	std::cerr << std::endl << "Finished in "
+		<< timer.Elapsed() << " seconds" << std::endl;
 
 	return 0;
 

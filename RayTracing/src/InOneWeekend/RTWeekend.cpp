@@ -1,9 +1,16 @@
 #include "InOneWeekend/RTWeekend.h"
 
 #include <random>
+#include <iostream>
 
 #include "InOneWeekend/Hittable.h"
+#include "InOneWeekend/HittableList.h"
+#include "InOneWeekend/Sphere.h"
+
 #include "InOneWeekend/Materials/Material.h"
+#include "InOneWeekend/Materials/Lambertian.h"
+#include "InOneWeekend/Materials/Metal.h"
+#include "InOneWeekend/Materials/Dielectric.h"
 
 namespace RayTracing { namespace Utils {
 
@@ -131,6 +138,61 @@ namespace RayTracing { namespace Utils {
 		glm::vec3 rayOutPerp = etaiOverEtat * (uv + cosTheta * n);
 		glm::vec3 rayOutParalell = -glm::sqrt(fabs(1.0f - glm::length2(rayOutPerp))) * n;
 		return rayOutPerp + rayOutParalell;
+	}
+
+	HittableList RandomScene()
+	{
+		HittableList world;
+
+		Ref<Lambertian> groundMaterial = CreateRef<Lambertian>(glm::vec3{ 0.5f, 0.5f, 0.5f });
+		world.Add(CreateRef<Sphere>(glm::vec3{ 0, -1000, 0 }, 1000, groundMaterial));
+
+		for (int a = -11; a < 11; ++a)
+		{
+			for (int b = -11; b < 11; ++b)
+			{
+				float chooseMat = RandomFloat();
+				glm::vec3 center{ a + 0.9f * RandomFloat(), 0.2f, b + 0.9f * RandomFloat() };
+
+				if (glm::length(center - glm::vec3{ 4, 0.2f, 0 }) > 0.9f)
+				{
+					Ref<Material> sphereMaterial;
+
+					if (chooseMat < 0.8f)
+					{
+						// Diffuse
+						glm::vec3 albedo = RandomVec3() * RandomVec3();
+						sphereMaterial = CreateRef<Lambertian>(albedo);
+					}
+					else if (chooseMat < 0.95f)
+					{
+						// Metal
+						glm::vec3 albedo = RandomVec3(0.5f, 1.0f);
+						float fuzz = RandomFloat(0.0f, 0.5f);
+						sphereMaterial = CreateRef<Metal>(albedo, fuzz);
+					}
+					else
+					{
+						// Glass
+						sphereMaterial = CreateRef<Dielectric>(1.5f);
+					}
+
+					world.Add(CreateRef<Sphere>(center, 0.2f, sphereMaterial));
+				}
+			}
+		}
+
+		Ref<Dielectric> material1 = CreateRef<Dielectric>(1.5f);
+		world.Add(CreateRef<Sphere>(glm::vec3{ 0, 1, 0 }, 1.0f, material1));
+		
+		Ref<Lambertian> material2 = CreateRef<Lambertian>(glm::vec3{ 0.4f, 0.2f, 0.1f });
+		world.Add(CreateRef<Sphere>(glm::vec3{ -4, 1, 0 }, 1.0f, material2));
+		
+
+		Ref<Metal> material3 = CreateRef<Metal>(glm::vec3{ 0.7f, 0.6f, 0.5f }, 0.0f);
+		world.Add(CreateRef<Sphere>(glm::vec3{ 4, 1, 0 }, 1.0f, material3));
+		
+		return world;
 	}
 
 } }
