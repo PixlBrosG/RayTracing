@@ -47,7 +47,7 @@ namespace RayTracing { namespace Utils {
 
 		glm::vec3 unitDirection = glm::normalize(ray.GetDirection());
 		float t = 0.5f * (unitDirection.y + 1.0f);
-		return (1.0f - t) * glm::vec3{ 1.0f, 1.0f, 1.0f } + t * glm::vec3{ 0.5f, 0.7f, 1.0f };
+		return (1.0f - t) * glm::vec3(1.0f) + t * glm::vec3{0.5f, 0.7f, 1.0f};
 	}
 
 	void WriteColor(std::ostream& out, const glm::vec3& color, int samplesPerPixel)
@@ -59,9 +59,13 @@ namespace RayTracing { namespace Utils {
 		float b = glm::sqrt(color.b * scale);
 
 		// Write the translated [0,255] value of each color component
-		out << (int)(256 * Clamp(r, 0.0f, 0.999f)) << ' '
-			<< (int)(256 * Clamp(g, 0.0f, 0.999f)) << ' '
-			<< (int)(256 * Clamp(b, 0.0f, 0.999f)) << std::endl;
+//		out << (int)(256 * Clamp(r, 0.0f, 0.999f)) << ' '
+//			<< (int)(256 * Clamp(g, 0.0f, 0.999f)) << ' '
+//			<< (int)(256 * Clamp(b, 0.0f, 0.999f)) << std::endl;
+	
+		out << 255 * r << ' '
+			<< 255 * g << ' '
+			<< 255 * b << std::endl;
 	}
 
 	glm::vec3 RandomVec3()
@@ -90,7 +94,7 @@ namespace RayTracing { namespace Utils {
 	glm::vec3 RandomInHemiSphere(const glm::vec3& normal)
 	{
 		glm::vec3 inUnitSphere = RandomInUnitSphere();
-		if (glm::dot(inUnitSphere, normal) > 0.0) // In the hemisphere as the normal
+		if (glm::dot(inUnitSphere, normal) > 0.0f) // In the hemisphere as the normal
 			return inUnitSphere;
 		else
 			return -inUnitSphere;

@@ -8,9 +8,9 @@ namespace RayTracing {
 	{
 	public:
 		// vfov = vertical field-of-view in degrees
-		Camera(float vfov, float aspectRatio);
+		Camera(const glm::vec3& lookFrom, const glm::vec3& lookAt, const glm::vec3& vup, float vfov, float aspectRatio);
 
-		Ray GetRay(float u, float v) const;
+		Ray GetRay(float s, float t) const;
 	private:
 		glm::vec3 m_Origin;
 		glm::vec3 m_LowerLeftCorner;

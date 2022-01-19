@@ -30,7 +30,7 @@ namespace RayTracing {
 		if (root < minT || maxT < root)
 		{
 			root = (-halfB + sqrtd) / a;
-			if (root < minT || maxT < sqrtd)
+			if (root < minT || maxT < root)
 				return false;
 		}
 
