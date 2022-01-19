@@ -36,6 +36,7 @@ namespace RayTracing {
 		glm::vec3 RandomVec3();
 		glm::vec3 RandomVec3(float min, float max);
 
+		glm::vec3 RandomInUnitDisk();
 		glm::vec3 RandomInUnitSphere();
 		glm::vec3 RandomInHemiSphere(const glm::vec3& normal);
 		glm::vec3 RandomUnitVector();

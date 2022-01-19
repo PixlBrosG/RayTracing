@@ -42,7 +42,13 @@ int main()
 	world.Add(CreateRef<Sphere>(glm::vec3{  1.0f,    0.0f, -1.0f }, 0.5f,   material_right));
 
 	// Camera
-	Camera camera(glm::vec3{ -2, 2, 1 }, glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 }, 20, aspectRatio);
+	constexpr glm::vec3 lookFrom{ 3, 3, 3 };
+	constexpr glm::vec3 lookAt{ 0, 0, -1 };
+	constexpr glm::vec3 vup{ 0, 1, 0 };
+	float distToFocus = glm::length(lookFrom - lookAt);
+	float aperture = 2.0f;
+
+	Camera camera(lookFrom, lookAt, vup, 20, aspectRatio, aperture, distToFocus);
 
 	// Render
 	std::cout << "P3" << std::endl;

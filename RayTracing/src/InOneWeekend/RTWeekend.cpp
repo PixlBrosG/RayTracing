@@ -78,15 +78,22 @@ namespace RayTracing { namespace Utils {
 		return glm::vec3{ RandomFloat(min, max), RandomFloat(min, max), RandomFloat(min, max) };
 	}
 
+	glm::vec3 RandomInUnitDisk()
+	{
+		while (true)
+		{
+			glm::vec3 point = glm::vec3{ RandomFloat(-1, 1), RandomFloat(-1, 1), 0 };
+			if (glm::length2(point) < 1)
+				return point;
+		}
+	}
+
 	glm::vec3 RandomInUnitSphere()
 	{
 		while (true)
 		{
 			glm::vec3 point = RandomVec3(-1, 1);
-
-			// If length^2 < 1 then length < 1
-			// length cannot be negative so abs() is not necessary
-			if (glm::length(point) < 1)
+			if (glm::length2(point) < 1)
 				return point;
 		}
 	}

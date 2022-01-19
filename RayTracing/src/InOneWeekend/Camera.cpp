@@ -2,7 +2,7 @@
 
 namespace RayTracing {
 
-	Camera::Camera(const glm::vec3& lookFrom, const glm::vec3& lookAt, const glm::vec3& vup, float vfov, float aspectRatio)
+	Camera::Camera(const glm::vec3& lookFrom, const glm::vec3& lookAt, const glm::vec3& vup, float vfov, float aspectRatio, float aperture, float focusDist)
 		: m_Origin(lookFrom)
 	{
 		float theta = glm::radians(vfov);
@@ -10,18 +10,23 @@ namespace RayTracing {
 		float viewportHeight = 2.0f * h;
 		float viewportWidth = aspectRatio * viewportHeight;
 
-		glm::vec3 w = glm::normalize(lookFrom - lookAt);
-		glm::vec3 u = glm::normalize(glm::cross(vup, w));
-		glm::vec3 v = glm::cross(w, u);
+		m_W = glm::normalize(lookFrom - lookAt);
+		m_U = glm::normalize(glm::cross(vup, m_W));
+		m_V = glm::cross(m_W, m_U);
 
-		m_Horizontal = viewportWidth * u;
-		m_Vertical = viewportHeight * v;
-		m_LowerLeftCorner = m_Origin - m_Horizontal / 2.0f - m_Vertical / 2.0f - w;
+		m_Horizontal = focusDist * viewportWidth * m_U;
+		m_Vertical = focusDist * viewportHeight * m_V;
+		m_LowerLeftCorner = m_Origin - m_Horizontal / 2.0f - m_Vertical / 2.0f - focusDist * m_W;
+
+		m_LensRadius = aperture / 2;
 	}
 
 	Ray Camera::GetRay(float s, float t) const
 	{
-		return Ray(m_Origin, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - m_Origin);
+		glm::vec3 rd = m_LensRadius * Utils::RandomInUnitDisk();
+		glm::vec3 offset = m_U * rd.x + m_V * rd.y;
+
+		return Ray(m_Origin + offset, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - m_Origin - offset);
 	}
 
 }
