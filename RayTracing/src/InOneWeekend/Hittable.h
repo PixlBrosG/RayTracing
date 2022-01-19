@@ -3,14 +3,19 @@
 #include <glm/vec3.hpp>
 #include <glm/geometric.hpp>
 
-#include "InOneWeekend/Ray.h"
+#include "Core/Base.h"
+
+#include "InOneWeekend/RTWeekend.h"
 
 namespace RayTracing {
+
+	class Material;
 
 	struct HitRecord
 	{
 		glm::vec3 Point;
 		glm::vec3 Normal;
+		Ref<Material> MaterialPtr;
 		float T;
 		bool FrontFace;
 

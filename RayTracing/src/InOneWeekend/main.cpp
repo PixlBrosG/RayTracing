@@ -7,6 +7,8 @@
 #include "InOneWeekend/Sphere.h"
 #include "InOneWeekend/Camera.h"
 
+#include "InOneWeekend/Materials/Lambertian.h"
+#include "InOneWeekend/Materials/Metal.h"
 
 int main()
 {
@@ -24,8 +26,16 @@ int main()
 
 	// World
 	HittableList world;
-	world.Add(CreateRef<Sphere>(glm::vec3{ 0, 0, -1 }, 0.5f));
-	world.Add(CreateRef<Sphere>(glm::vec3{ 0, -100.5f, -1 }, 100));
+
+	auto materialGround = CreateRef<Lambertian>(glm::vec3{ 0.8f, 0.8f, 0.0f });
+	auto materialCenter = CreateRef<Lambertian>(glm::vec3{ 0.7f, 0.3f, 0.3f });
+	auto materialLeft   = CreateRef<Metal>     (glm::vec3{ 0.8f, 0.8f, 0.8f }, 0.3f);
+	auto materialRight  = CreateRef<Metal>     (glm::vec3{ 0.8f, 0.6f, 0.2f }, 1.0f);
+
+	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f },   0.5f, materialLeft));
+	world.Add(CreateRef<Sphere>(glm::vec3{  1.0f,    0.0f, -1.0f },   0.5f, materialRight));
+	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f, -100.5f, -1.0f }, 100.0f, materialGround));
+	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f,    0.0f, -1.0f },   0.5f, materialCenter));
 
 	// Camera
 	Camera camera;

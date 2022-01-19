@@ -10,7 +10,6 @@
 #include <glm/vec3.hpp>
 
 #include "InOneWeekend/Ray.h"
-#include "InOneWeekend/Hittable.h"
 
 // Constants
 
@@ -19,20 +18,32 @@ constexpr float pi = 3.1415926535897932385f;
 
 // Utility functions
 
-namespace RayTracing { namespace Utils {
+namespace RayTracing {
 
-	float RandomFloat();
-	float RandomFloat(float max);
-	float RandomFloat(float min, float max);
+	class Hittable;
 
-	float Clamp(float x, float min, float max);
+	namespace Utils {
 
-	glm::vec3 GetRayColor(const Ray& ray, const Hittable& world, int depth);
-	void WriteColor(std::ostream& out, const glm::vec3& color, int samplesPerPixel);
+		float RandomFloat();
+		float RandomFloat(float max);
+		float RandomFloat(float min, float max);
 
-	glm::vec3 RandomVec3();
-	glm::vec3 RandomVec3(float min, float max);
+		float Clamp(float x, float min, float max);
 
-	glm::vec3 RandomInUnitSphere();
+		glm::vec3 GetRayColor(const Ray& ray, const Hittable& world, int depth);
+		void WriteColor(std::ostream& out, const glm::vec3& color, int samplesPerPixel);
 
-} }
+		glm::vec3 RandomVec3();
+		glm::vec3 RandomVec3(float min, float max);
+
+		glm::vec3 RandomInUnitSphere();
+		glm::vec3 RandomInHemiSphere(const glm::vec3& normal);
+		glm::vec3 RandomUnitVector();
+
+		bool IsNearZero(const glm::vec3& vector);
+
+		glm::vec3 Reflect(const glm::vec3& v, const glm::vec3& n);
+
+	}
+
+}

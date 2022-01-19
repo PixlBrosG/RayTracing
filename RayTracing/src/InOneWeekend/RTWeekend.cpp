@@ -2,6 +2,9 @@
 
 #include <random>
 
+#include "InOneWeekend/Hittable.h"
+#include "InOneWeekend/Materials/Material.h"
+
 namespace RayTracing { namespace Utils {
 
 	float RandomFloat()
@@ -34,8 +37,12 @@ namespace RayTracing { namespace Utils {
 		HitRecord hitRecord;
 		if (world.IsHit(ray, 0.001f, infinity, hitRecord))
 		{
-			glm::vec3 target = hitRecord.Normal + RandomInUnitSphere();
-			return 0.5f * GetRayColor(Ray(hitRecord.Point, target), world, depth - 1);
+			Ray scattered;
+			glm::vec3 attenuation;
+
+			if (hitRecord.MaterialPtr->Scatter(ray, hitRecord, attenuation, scattered))
+				return attenuation * GetRayColor(scattered, world, depth - 1);
+			return glm::vec3{ 0, 0, 0 };
 		}
 
 		glm::vec3 unitDirection = glm::normalize(ray.GetDirection());
@@ -72,10 +79,39 @@ namespace RayTracing { namespace Utils {
 		while (true)
 		{
 			glm::vec3 point = RandomVec3(-1, 1);
-//			if (glm::length2(point) < 1)
+
+			// If length^2 < 1 then length < 1
+			// length cannot be negative so abs() is not necessary
 			if (glm::length(point) < 1)
 				return point;
 		}
+	}
+
+	glm::vec3 RandomInHemiSphere(const glm::vec3& normal)
+	{
+		glm::vec3 inUnitSphere = RandomInUnitSphere();
+		if (glm::dot(inUnitSphere, normal) > 0.0) // In the hemisphere as the normal
+			return inUnitSphere;
+		else
+			return -inUnitSphere;
+	}
+	
+	glm::vec3 RandomUnitVector()
+	{
+		return glm::normalize(RandomInUnitSphere());
+	}
+
+	bool IsNearZero(const glm::vec3& vector)
+	{
+		constexpr float s = 1e-8f;
+		return fabs(vector.x) < s &&
+			   fabs(vector.y) < s &&
+			   fabs(vector.z) < s;
+	}
+
+	glm::vec3 Reflect(const glm::vec3& v, const glm::vec3& n)
+	{
+		return v - 2 * glm::dot(v, n) * n;
 	}
 
 } }

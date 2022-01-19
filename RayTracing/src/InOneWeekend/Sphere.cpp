@@ -5,8 +5,8 @@
 
 namespace RayTracing {
 
-	Sphere::Sphere(const glm::vec3& center, float radius)
-		: m_Center(center), m_Radius(radius)
+	Sphere::Sphere(const glm::vec3& center, float radius, Ref<Material> materialPtr)
+		: m_Center(center), m_Radius(radius), m_MaterialPtr(materialPtr)
 	{
 	}
 
@@ -38,6 +38,7 @@ namespace RayTracing {
 		hitRecord.Point = ray.At(hitRecord.T);
 		glm::vec3 outwardNormal = (hitRecord.Point - m_Center) / m_Radius;
 		hitRecord.SetFaceNormal(ray, outwardNormal);
+		hitRecord.MaterialPtr = m_MaterialPtr;
 
 		return true;
 	}
