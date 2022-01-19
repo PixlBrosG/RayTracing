@@ -26,21 +26,18 @@ int main()
 	constexpr int maxDepth = 50;
 
 	// World
+	
+	float R = glm::cos(pi / 4);
 	HittableList world;
 
-	auto materialGround = CreateRef<Lambertian>(glm::vec3{ 0.8f, 0.8f, 0.0f });
-	auto materialCenter = CreateRef<Lambertian>(glm::vec3{ 0.1f, 0.2f, 0.5f });
-	auto materialLeft   = CreateRef<Dielectric>(1.5f);
-	auto materialRight  = CreateRef<Metal>(glm::vec3{ 0.8f, 0.6f, 0.2f }, 0.0f);
+	Ref<Lambertian> materialLeft  = CreateRef<Lambertian>(glm::vec3{ 0, 0, 1 });
+	Ref<Lambertian> materialRight = CreateRef<Lambertian>(glm::vec3{ 1, 0, 0 });
 
-	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f },   0.5f, materialLeft));
-	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f },  -0.4f, materialLeft));
-	world.Add(CreateRef<Sphere>(glm::vec3{  1.0f,    0.0f, -1.0f },   0.5f, materialRight));
-	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f, -100.5f, -1.0f }, 100.0f, materialGround));
-	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f,    0.0f, -1.0f },   0.5f, materialCenter));
+	world.Add(CreateRef<Sphere>(glm::vec3{ -R, 0, -1 }, R, materialLeft));
+	world.Add(CreateRef<Sphere>(glm::vec3{  R, 0, -1 }, R, materialRight));
 
 	// Camera
-	Camera camera;
+	Camera camera(90.0f, aspectRatio);
 
 	// Render
 	std::cout << "P3" << std::endl;

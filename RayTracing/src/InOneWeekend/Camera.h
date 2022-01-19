@@ -7,7 +7,8 @@ namespace RayTracing {
 	class Camera
 	{
 	public:
-		Camera();
+		// vfov = vertical field-of-view in degrees
+		Camera(float vfov, float aspectRatio);
 
 		Ray GetRay(float u, float v) const;
 	private:
