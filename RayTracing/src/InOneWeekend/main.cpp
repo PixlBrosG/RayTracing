@@ -9,6 +9,7 @@
 
 #include "InOneWeekend/Materials/Lambertian.h"
 #include "InOneWeekend/Materials/Metal.h"
+#include "InOneWeekend/Materials/Dielectric.h"
 
 int main()
 {
@@ -28,9 +29,9 @@ int main()
 	HittableList world;
 
 	auto materialGround = CreateRef<Lambertian>(glm::vec3{ 0.8f, 0.8f, 0.0f });
-	auto materialCenter = CreateRef<Lambertian>(glm::vec3{ 0.7f, 0.3f, 0.3f });
-	auto materialLeft   = CreateRef<Metal>     (glm::vec3{ 0.8f, 0.8f, 0.8f }, 0.3f);
-	auto materialRight  = CreateRef<Metal>     (glm::vec3{ 0.8f, 0.6f, 0.2f }, 1.0f);
+	auto materialCenter = CreateRef<Dielectric>(1.5f);
+	auto materialLeft   = CreateRef<Dielectric>(1.5f);
+	auto materialRight  = CreateRef<Metal>(glm::vec3{ 0.8f, 0.6f, 0.2f }, 1.0f);
 
 	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f },   0.5f, materialLeft));
 	world.Add(CreateRef<Sphere>(glm::vec3{  1.0f,    0.0f, -1.0f },   0.5f, materialRight));

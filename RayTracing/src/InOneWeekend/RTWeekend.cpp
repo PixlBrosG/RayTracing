@@ -114,4 +114,12 @@ namespace RayTracing { namespace Utils {
 		return v - 2 * glm::dot(v, n) * n;
 	}
 
+	glm::vec3 Refract(const glm::vec3& uv, const glm::vec3& n, float etaiOverEtat)
+	{
+		float cosTheta = fmin(glm::dot(-uv, n), 1.0f);
+		glm::vec3 rayOutPerp = etaiOverEtat * (uv + cosTheta * n);
+		glm::vec3 rayOutParalell = -glm::sqrt(fabs(1.0f - glm::length2(rayOutPerp))) * n;
+		return rayOutPerp + rayOutParalell;
+	}
+
 } }

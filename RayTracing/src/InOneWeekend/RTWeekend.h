@@ -43,6 +43,7 @@ namespace RayTracing {
 		bool IsNearZero(const glm::vec3& vector);
 
 		glm::vec3 Reflect(const glm::vec3& v, const glm::vec3& n);
+		glm::vec3 Refract(const glm::vec3& uv, const glm::vec3& n, float etaiOverEtat);
 
 	}
 
