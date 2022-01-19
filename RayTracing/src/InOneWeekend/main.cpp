@@ -29,11 +29,12 @@ int main()
 	HittableList world;
 
 	auto materialGround = CreateRef<Lambertian>(glm::vec3{ 0.8f, 0.8f, 0.0f });
-	auto materialCenter = CreateRef<Dielectric>(1.5f);
+	auto materialCenter = CreateRef<Lambertian>(glm::vec3{ 0.1f, 0.2f, 0.5f });
 	auto materialLeft   = CreateRef<Dielectric>(1.5f);
-	auto materialRight  = CreateRef<Metal>(glm::vec3{ 0.8f, 0.6f, 0.2f }, 1.0f);
+	auto materialRight  = CreateRef<Metal>(glm::vec3{ 0.8f, 0.6f, 0.2f }, 0.0f);
 
 	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f },   0.5f, materialLeft));
+	world.Add(CreateRef<Sphere>(glm::vec3{ -1.0f,    0.0f, -1.0f },  -0.4f, materialLeft));
 	world.Add(CreateRef<Sphere>(glm::vec3{  1.0f,    0.0f, -1.0f },   0.5f, materialRight));
 	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f, -100.5f, -1.0f }, 100.0f, materialGround));
 	world.Add(CreateRef<Sphere>(glm::vec3{  0.0f,    0.0f, -1.0f },   0.5f, materialCenter));
