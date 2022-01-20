@@ -29,10 +29,7 @@ namespace RayTracing {
 		float RandomFloat(float max);
 		float RandomFloat(float min, float max);
 
-		float Clamp(float x, float min, float max);
-
 		glm::vec3 GetRayColor(const Ray& ray, const Hittable& world, int depth);
-		void WriteColor(std::ostream& out, const glm::vec3& color, int samplesPerPixel);
 
 		glm::vec3 RandomVec3();
 		glm::vec3 RandomVec3(float min, float max);
@@ -52,3 +49,5 @@ namespace RayTracing {
 	}
 
 }
+
+std::ostream& operator<<(std::ostream& out, const glm::vec3& color);

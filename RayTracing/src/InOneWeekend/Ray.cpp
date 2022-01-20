@@ -12,6 +12,7 @@ namespace RayTracing {
 	{
 	}
 
+#if 0
 	float Ray::HitSphere(const glm::vec3& center, float radius) const
 	{
 		glm::vec3 oc = m_Origin - center;
@@ -28,5 +29,6 @@ namespace RayTracing {
 		else
 			return (-halfB - glm::sqrt(discriminant)) / a;
 	}
+#endif
 
 }

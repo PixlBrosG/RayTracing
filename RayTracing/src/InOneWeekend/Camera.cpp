@@ -24,9 +24,14 @@ namespace RayTracing {
 	Ray Camera::GetRay(float s, float t) const
 	{
 		glm::vec3 rd = m_LensRadius * Utils::RandomInUnitDisk();
-		glm::vec3 offset = m_U * rd.x + m_V * rd.y;
 
+#if 0
+		glm::vec3 offset = m_U * rd.x + m_V * rd.y;
 		return Ray(m_Origin + offset, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - m_Origin - offset);
+#else
+		glm::vec3 offset = m_U * rd.x + m_V * rd.y + m_Origin;
+		return Ray(offset, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - offset);
+#endif
 	}
 
 }

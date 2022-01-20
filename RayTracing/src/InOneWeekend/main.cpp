@@ -24,8 +24,8 @@ int main()
 	constexpr float aspectRatio = 3.0f / 2.0f;
 	constexpr int imageWidth = 1200;
 	constexpr int imageHeight = (int)(imageWidth / aspectRatio);
-	constexpr int samplesPerPixel = 10;
-	constexpr int maxDepth = 50;
+	constexpr int samplesPerPixel = 32;
+	constexpr int maxDepth = 8;
 
 	// World
 
@@ -59,7 +59,9 @@ int main()
 				Ray ray = camera.GetRay(u, v);
 				color += Utils::GetRayColor(ray, world, maxDepth);
 			}
-			Utils::WriteColor(std::cout, color, samplesPerPixel);
+
+			constexpr float scale = 1.0f / samplesPerPixel;
+			std::cout << color * scale;
 		}
 	}
 

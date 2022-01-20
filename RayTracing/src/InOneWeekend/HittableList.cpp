@@ -13,7 +13,7 @@ namespace RayTracing {
 		bool hitAnything = false;
 		float closestSoFar = maxT;
 
-		for (const Ref<Hittable>& object : m_Objects)
+		for (Ref<Hittable> object : m_Objects)
 		{
 			if (object->IsHit(ray, minT, closestSoFar, tempRecord))
 			{
