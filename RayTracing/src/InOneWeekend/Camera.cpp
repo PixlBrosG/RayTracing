@@ -2,8 +2,8 @@
 
 namespace RayTracing {
 
-	Camera::Camera(const glm::vec3& lookFrom, const glm::vec3& lookAt, const glm::vec3& vup, float vfov, float aspectRatio, float aperture, float focusDist)
-		: m_Origin(lookFrom)
+	Camera::Camera(const glm::vec3& lookFrom, const glm::vec3& lookAt, const glm::vec3& vup, float vfov, float aspectRatio, float aperture, float focusDist, float time0, float time1)
+		: m_Origin(lookFrom), m_Time0(time0), m_Time1(time1)
 	{
 		float theta = glm::radians(vfov);
 		float h = glm::tan(theta / 2);
@@ -25,13 +25,8 @@ namespace RayTracing {
 	{
 		glm::vec3 rd = m_LensRadius * Utils::RandomInUnitDisk();
 
-#if 0
-		glm::vec3 offset = m_U * rd.x + m_V * rd.y;
-		return Ray(m_Origin + offset, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - m_Origin - offset);
-#else
 		glm::vec3 offset = m_U * rd.x + m_V * rd.y + m_Origin;
-		return Ray(offset, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - offset);
-#endif
+		return Ray(offset, m_LowerLeftCorner + s * m_Horizontal + t * m_Vertical - offset, Utils::RandomFloat(m_Time0, m_Time1));
 	}
 
 }

@@ -10,7 +10,7 @@ namespace RayTracing {
 	bool Metal::Scatter(const Ray& inRay, const HitRecord& hitRecord, glm::vec3& attenuation, Ray& scattered) const
 	{
 		glm::vec3 reflected = Utils::Reflect(glm::normalize(inRay.GetDirection()), hitRecord.Normal);
-		scattered = Ray(hitRecord.Point, reflected + m_Fuzz * Utils::RandomInUnitSphere());
+		scattered = Ray(hitRecord.Point, reflected + m_Fuzz * Utils::RandomInUnitSphere(), inRay.GetTime());
 		attenuation = m_Albedo;
 		return glm::dot(scattered.GetDirection(), hitRecord.Normal) > 0;
 	}

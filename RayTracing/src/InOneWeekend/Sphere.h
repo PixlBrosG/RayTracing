@@ -2,7 +2,7 @@
 
 #include <glm/vec3.hpp>
 
-#include "InOneWeekend/Hittable.h"
+#include "Common/Hittable.h"
 
 namespace RayTracing {
 

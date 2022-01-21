@@ -25,7 +25,7 @@ namespace RayTracing {
 		else
 			direction = Utils::Refract(unitDirection, hitRecord.Normal, refractionRatio);
 
-		scattered = Ray(hitRecord.Point, direction);
+		scattered = Ray(hitRecord.Point, direction, inRay.GetTime());
 		return true;
 	}
 

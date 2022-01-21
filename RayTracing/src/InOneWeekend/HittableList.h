@@ -4,7 +4,7 @@
 
 #include "Core/Base.h"
 
-#include "InOneWeekend/Hittable.h"
+#include "Common/Hittable.h"
 
 namespace RayTracing {
 

@@ -9,7 +9,7 @@
 #include <glm/gtx/norm.hpp>
 #include <glm/vec3.hpp>
 
-#include "InOneWeekend/Ray.h"
+#include "Common/Ray.h"
 
 // Constants
 

@@ -5,7 +5,7 @@
 
 #include "Core/Base.h"
 
-#include "InOneWeekend/RTWeekend.h"
+#include "Common/RTUtils.h"
 
 namespace RayTracing {
 

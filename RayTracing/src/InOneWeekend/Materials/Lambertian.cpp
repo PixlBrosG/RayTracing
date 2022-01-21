@@ -15,7 +15,7 @@ namespace RayTracing {
 		if (Utils::IsNearZero(scatterDirection))
 			scatterDirection = hitRecord.Normal;
 
-		scattered = Ray(hitRecord.Point, scatterDirection);
+		scattered = Ray(hitRecord.Point, scatterDirection, inRay.GetTime());
 		attenuation = m_Albedo;
 		return true;
 	}

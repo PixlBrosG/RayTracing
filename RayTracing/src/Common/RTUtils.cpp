@@ -1,11 +1,13 @@
-#include "InOneWeekend/RTWeekend.h"
+#include "Common/RTUtils.h"
 
 #include <random>
 #include <iostream>
 
-#include "InOneWeekend/Hittable.h"
+#include "Common/Hittable.h"
 #include "InOneWeekend/HittableList.h"
+
 #include "InOneWeekend/Sphere.h"
+#include "TheNextWeek/MovingSphere.h"
 
 #include "InOneWeekend/Materials/Material.h"
 #include "InOneWeekend/Materials/Lambertian.h"
@@ -138,6 +140,8 @@ namespace RayTracing { namespace Utils {
 						// Diffuse
 						glm::vec3 albedo = RandomVec3() * RandomVec3();
 						sphereMaterial = CreateRef<Lambertian>(albedo);
+						glm::vec3 center2 = center + glm::vec3{ 0, RandomFloat(0, 0.5f), 0 };
+						world.Add(CreateRef<MovingSphere>(center, center2, 0.0f, 1.0f, 0.2f, sphereMaterial));
 					}
 					else if (chooseMat < 0.95f)
 					{
@@ -145,14 +149,14 @@ namespace RayTracing { namespace Utils {
 						glm::vec3 albedo = RandomVec3(0.5f, 1.0f);
 						float fuzz = RandomFloat(0.0f, 0.5f);
 						sphereMaterial = CreateRef<Metal>(albedo, fuzz);
+						world.Add(CreateRef<Sphere>(center, 0.2f, sphereMaterial));
 					}
 					else
 					{
 						// Glass
 						sphereMaterial = CreateRef<Dielectric>(1.5f);
+						world.Add(CreateRef<Sphere>(center, 0.2f, sphereMaterial));
 					}
-
-					world.Add(CreateRef<Sphere>(center, 0.2f, sphereMaterial));
 				}
 			}
 		}

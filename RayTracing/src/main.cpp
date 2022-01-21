@@ -3,14 +3,10 @@
 #include "Core/Base.h"
 #include "Core/Timer.h"
 
-#include "InOneWeekend/RTWeekend.h"
-#include "InOneWeekend/HittableList.h"
-#include "InOneWeekend/Sphere.h"
-#include "InOneWeekend/Camera.h"
+#include "Common/RTUtils.h"
 
-#include "InOneWeekend/Materials/Lambertian.h"
-#include "InOneWeekend/Materials/Metal.h"
-#include "InOneWeekend/Materials/Dielectric.h"
+#include "InOneWeekend/HittableList.h"
+#include "InOneWeekend/Camera.h"
 
 int main()
 {
@@ -21,10 +17,10 @@ int main()
 	Timer timer;
 
 	// Image
-	constexpr float aspectRatio = 3.0f / 2.0f;
-	constexpr int imageWidth = 1200;
+	constexpr float aspectRatio = 16.0f / 9.0f;
+	constexpr int imageWidth = 400;
 	constexpr int imageHeight = (int)(imageWidth / aspectRatio);
-	constexpr int samplesPerPixel = 32;
+	constexpr int samplesPerPixel = 100;
 	constexpr int maxDepth = 8;
 
 	// World
@@ -35,10 +31,10 @@ int main()
 	constexpr glm::vec3 lookFrom{ 13, 2, 3 };
 	constexpr glm::vec3 lookAt{ 0, 0, 0 };
 	constexpr glm::vec3 vup{ 0, 1, 0 };
-	float distToFocus = 10.0f;
-	float aperture = 0.1f;
+	constexpr float distToFocus = 10.0f;
+	constexpr float aperture = 0.1f;
 
-	Camera camera(lookFrom, lookAt, vup, 20, aspectRatio, aperture, distToFocus);
+	Camera camera(lookFrom, lookAt, vup, 20, aspectRatio, aperture, distToFocus, 0.0f, 1.0f);
 
 	// Render
 	std::cout << "P3" << std::endl;

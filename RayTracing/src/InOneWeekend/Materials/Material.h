@@ -1,7 +1,7 @@
 #pragma once
 
-#include "InOneWeekend/RTWeekend.h"
-#include "InOneWeekend/Hittable.h"
+#include "Common/RTUtils.h"
+#include "Common/Hittable.h"
 
 namespace RayTracing {
 
