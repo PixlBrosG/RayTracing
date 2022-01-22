@@ -1,11 +1,10 @@
 #pragma once
 
-#include <glm/vec3.hpp>
-#include <glm/geometric.hpp>
+#include "RayTracing/Core/Base.h"
 
-#include "Core/Base.h"
+#include "RayTracing/Utils/RTUtils.h"
 
-#include "Common/RTUtils.h"
+#include "RayTracing/Hittable/AABB.h"
 
 namespace RayTracing {
 
@@ -30,6 +29,7 @@ namespace RayTracing {
 	{
 	public:
 		virtual bool IsHit(const Ray& ray, float minT, float maxT, HitRecord& hitRecord) const = 0;
+		virtual bool BoundingBox(float time0, float time1, AABB& outputBox) const = 0;
 	};
 
 }

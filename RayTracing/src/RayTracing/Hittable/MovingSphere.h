@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Common/RTUtils.h"
-#include "Common/Hittable.h"
+#include <glm/vec3.hpp>
+
+#include "RayTracing/Hittable/Hittable.h"
 
 namespace RayTracing {
 
@@ -12,6 +13,7 @@ namespace RayTracing {
 		MovingSphere(const glm::vec3& center0, const glm::vec3& center1, float time0, float time1, float radius, Ref<Material> material);
 
 		virtual bool IsHit(const Ray& ray, float minT, float maxT, HitRecord& hitRecord) const override;
+		virtual bool BoundingBox(float time0, float time1, AABB& outputBox) const override;
 
 		glm::vec3 GetCenter(float time) const;
 	private:

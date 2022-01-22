@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Common/RTUtils.h"
+#include "RayTracing/Utils/RTUtils.h"
+
+#include "RayTracing/Ray.h"
 
 namespace RayTracing {
 

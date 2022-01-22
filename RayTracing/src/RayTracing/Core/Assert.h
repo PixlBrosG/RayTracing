@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Base.h"
-#include "Core/Log.h"
+#include "RayTracing/Core/Base.h"
+#include "RayTracing/Core/Log.h"
 
 #include <filesystem>
 

@@ -1,9 +1,9 @@
 #include <glm/geometric.hpp>
 #include <glm/gtx/norm.hpp>
 
-#include "Common/Ray.h"
+#include "RayTracing/Ray.h"
 
-#include "Common/RTUtils.h"
+#include "RayTracing/Utils/RTUtils.h"
 
 namespace RayTracing {
 

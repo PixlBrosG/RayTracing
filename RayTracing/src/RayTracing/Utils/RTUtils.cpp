@@ -1,18 +1,20 @@
-#include "Common/RTUtils.h"
+#include "RayTracing/Utils/RTUtils.h"
 
 #include <random>
 #include <iostream>
 
-#include "Common/Hittable.h"
-#include "InOneWeekend/HittableList.h"
+#include "RayTracing/Hittable/Hittable.h"
+#include "RayTracing/Hittable/HittableList.h"
 
-#include "InOneWeekend/Sphere.h"
-#include "TheNextWeek/MovingSphere.h"
+#include "RayTracing/Hittable/Sphere.h"
+#include "RayTracing/Hittable/MovingSphere.h"
 
-#include "InOneWeekend/Materials/Material.h"
-#include "InOneWeekend/Materials/Lambertian.h"
-#include "InOneWeekend/Materials/Metal.h"
-#include "InOneWeekend/Materials/Dielectric.h"
+#include "RayTracing/Materials/Material.h"
+#include "RayTracing/Materials/Lambertian.h"
+#include "RayTracing/Materials/Metal.h"
+#include "RayTracing/Materials/Dielectric.h"
+
+#include "RayTracing/Ray.h"
 
 namespace RayTracing { namespace Utils {
 
@@ -31,6 +33,11 @@ namespace RayTracing { namespace Utils {
 	float RandomFloat(float min, float max)
 	{
 		return RandomFloat() * (max - min) + min;
+	}
+
+	int RandomInt(int min, int max)
+	{
+		return (int)RandomFloat((float)min, (float)max + 1);
 	}
 
 	glm::vec3 GetRayColor(const Ray& ray, const Hittable& world, int depth)
@@ -173,6 +180,39 @@ namespace RayTracing { namespace Utils {
 		
 		return world;
 	}
+
+	AABB SurroundingBox(const AABB& box0, const AABB& box1)
+	{
+		glm::vec3 small
+		{
+			glm::min(box0.GetMin().x, box1.GetMin().x),
+			glm::min(box0.GetMin().y, box1.GetMin().y),
+			glm::min(box0.GetMin().z, box1.GetMin().z)
+		};
+
+		glm::vec3 big
+		{
+			glm::min(box0.GetMax().x, box1.GetMax().x),
+			glm::min(box0.GetMax().y, box1.GetMax().y),
+			glm::min(box0.GetMax().z, box1.GetMax().z)
+		};
+
+		return AABB(small, big);
+	}
+
+	inline bool CompareBox(const Ref<Hittable> a, const Ref<Hittable> b, int axis)
+	{
+		AABB boxA, boxB;
+
+		if (!a->BoundingBox(0, 0, boxA) || !b->BoundingBox(0, 0, boxB))
+			std::cerr << "No bounding box in BVHNode constructor." << std::endl;
+
+		return boxA.GetMin()[axis] < boxB.GetMin()[axis];
+	}
+
+	bool CompareBoxX(const Ref<Hittable> a, const Ref<Hittable> b) { return CompareBox(a, b, 0); }
+	bool CompareBoxY(const Ref<Hittable> a, const Ref<Hittable> b) { return CompareBox(a, b, 1); }
+	bool CompareBoxZ(const Ref<Hittable> a, const Ref<Hittable> b) { return CompareBox(a, b, 2); }
 
 } }
 

@@ -1,4 +1,4 @@
-#include "InOneWeekend/Sphere.h"
+#include "RayTracing/Hittable/Sphere.h"
 
 #include <glm/geometric.hpp>
 #include <glm/gtx/norm.hpp>
@@ -40,6 +40,12 @@ namespace RayTracing {
 		hitRecord.SetFaceNormal(ray, outwardNormal);
 		hitRecord.MaterialPtr = m_MaterialPtr;
 
+		return true;
+	}
+
+	bool Sphere::BoundingBox(float time0, float time1, AABB& outputBox) const
+	{
+		outputBox = AABB(m_Center - glm::vec3(m_Radius), m_Center + glm::vec3(m_Radius));
 		return true;
 	}
 

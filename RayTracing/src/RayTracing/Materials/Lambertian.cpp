@@ -1,4 +1,4 @@
-#include "InOneWeekend/Materials/Lambertian.h"
+#include "RayTracing/Materials/Lambertian.h"
 
 namespace RayTracing {
 

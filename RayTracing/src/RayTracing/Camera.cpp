@@ -1,4 +1,4 @@
-#include "InOneWeekend/Camera.h"
+#include "RayTracing/Camera.h"
 
 namespace RayTracing {
 

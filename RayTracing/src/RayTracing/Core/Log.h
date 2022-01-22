@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Base.h"
+#include "RayTracing/Core/Base.h"
 
 #pragma warning(push, 0)
 #include "spdlog/spdlog.h"

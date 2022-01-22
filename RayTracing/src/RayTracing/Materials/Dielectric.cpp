@@ -1,4 +1,4 @@
-#include "InOneWeekend/Materials/Dielectric.h"
+#include "RayTracing/Materials/Dielectric.h"
 
 namespace RayTracing {
 

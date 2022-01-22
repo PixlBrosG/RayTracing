@@ -1,4 +1,4 @@
-#include "InOneWeekend/HittableList.h"
+#include "RayTracing/Hittable/HittableList.h"
 
 namespace RayTracing {
 
@@ -26,6 +26,25 @@ namespace RayTracing {
 			hitRecord = tempRecord;
 
 		return hitAnything;
+	}
+
+	bool HittableList::BoundingBox(float time0, float time1, AABB& outputBox) const
+	{
+		if (m_Objects.empty())
+			return false;
+
+		AABB tempBox;
+		bool firstBox = true;
+
+		for (const Ref<Hittable>& object : m_Objects)
+		{
+			if (!object->BoundingBox(time0, time1, tempBox))
+				return false;
+			outputBox = firstBox ? tempBox : Utils::SurroundingBox(outputBox, tempBox);
+			firstBox = false;
+		}
+
+		return true;
 	}
 
 }

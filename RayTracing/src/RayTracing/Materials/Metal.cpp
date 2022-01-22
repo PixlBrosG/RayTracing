@@ -1,4 +1,4 @@
-#include "InOneWeekend/Materials/Metal.h"
+#include "RayTracing/Materials/Metal.h"
 
 namespace RayTracing {
 

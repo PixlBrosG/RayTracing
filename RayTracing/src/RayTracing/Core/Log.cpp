@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "Core/Log.h"
+#include "RayTracing/Core/Log.h"
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>

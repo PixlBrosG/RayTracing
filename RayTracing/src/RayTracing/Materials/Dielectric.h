@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InOneWeekend/Materials/Material.h"
+#include "RayTracing/Materials/Material.h"
 
 namespace RayTracing {
 

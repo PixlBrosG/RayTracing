@@ -3,10 +3,11 @@
 #include "Core/Base.h"
 #include "Core/Timer.h"
 
-#include "Common/RTUtils.h"
+#include "RayTracing/Utils/RTUtils.h"
 
-#include "InOneWeekend/HittableList.h"
-#include "InOneWeekend/Camera.h"
+#include "RayTracing/Hittable/HittableList.h"
+
+#include "RayTracing/Camera.h"
 
 int main()
 {

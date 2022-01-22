@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "Core/PlatformDetection.h"
+#include "RayTracing/Core/PlatformDetection.h"
 
 #ifdef RT_DEBUG
 	#if defined(RT_PLATFORM_WINDOWS)
@@ -45,5 +45,5 @@ namespace RayTracing {
 
 }
 
-#include "Core/Log.h"
-#include "Core/Assert.h"
+#include "RayTracing/Core/Log.h"
+#include "RayTracing/Core/Assert.h"

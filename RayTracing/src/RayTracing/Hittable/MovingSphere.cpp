@@ -1,4 +1,4 @@
-#include "TheNextWeek/MovingSphere.h"
+#include "RayTracing/Hittable/MovingSphere.h"
 
 namespace RayTracing {
 
@@ -44,6 +44,14 @@ namespace RayTracing {
 	glm::vec3 MovingSphere::GetCenter(float time) const
 	{
 		return m_Center0 + ((time - m_Time0) / (m_Time1 - m_Time0)) * (m_Center1 - m_Center0);
+	}
+
+	bool MovingSphere::BoundingBox(float time0, float time1, AABB& outputBox) const
+	{
+		AABB box0(GetCenter(time0) - glm::vec3(m_Radius), GetCenter(time0) + glm::vec3(m_Radius));
+		AABB box1(GetCenter(time0) - glm::vec3(m_Radius), GetCenter(time0) + glm::vec3(m_Radius));
+		outputBox = Utils::SurroundingBox(box0, box1);
+		return true;
 	}
 
 }
